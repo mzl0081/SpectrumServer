@@ -14,7 +14,7 @@ class QuestionClass
 		$this->questionContent = $questionContent;
 		$this->explanation = $explanation;
 		$this->options = $options;
-		echo("Construct QuestionClass: ".$this->questionID."<br/>");
+// 		echo("Construct QuestionClass: ".$this->questionID."<br/>");
 	}
 }
 ?>

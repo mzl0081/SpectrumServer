@@ -12,7 +12,7 @@ class OptionClass
 		$this->option = $option;
 		$this->isCorrect = $isCorrect;
 		$this->isSelect = $isSelect;
-		echo("Construct OptionClass: ".$this->optionID."<br/>");
+// 		echo("Construct OptionClass: ".$this->optionID."<br/>");
 	}
 }
 ?>

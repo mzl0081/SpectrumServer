@@ -33,7 +33,34 @@ class CaseClass
 		$this->caseVideoScreenshot = $caseVideoScreenshot;
 		$this->teachersNotes = $teachersNotes;
 		$this->questions = $questions;
-		echo("Construct CaseClass:".$this->caseID."<br/>");
+// 		echo("Construct CaseClass:".$this->caseID."<br/>");
 	}
+	
+	public function echoJsonWithAllData()
+	{
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 ?>

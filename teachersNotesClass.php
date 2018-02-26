@@ -10,7 +10,7 @@ class TeachersNotesClass
 		$this->noteID = $noteID;
 		$this->noteVideo = $noteVideo;
 		$this->noteCover = $noteCover;
-		echo("Construct TeachersNoteClass: ".$this->noteID."<br/>");
+// 		echo("Construct TeachersNoteClass: ".$this->noteID."<br/>");
 	}
 }
 ?>
