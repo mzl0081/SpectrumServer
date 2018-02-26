@@ -6,9 +6,13 @@ class OptionClass
 	public $isCorrect;
 	public $isSelect;
 	
-	public function __construct()
+	public function __construct($optionID, $option, $isCorrect, $isSelect)
 	{
-		echo("Construct OptionClass<br/>");
+		$this->optionID = $optionID;
+		$this->option = $option;
+		$this->isCorrect = $isCorrect;
+		$this->isSelect = $isSelect;
+		echo("Construct OptionClass: ".$this->optionID."<br/>");
 	}
 }
 ?>

@@ -14,10 +14,26 @@ class CaseClass
 	public $teachersNotes;
 	public $questions;
 	
-	public function __construct(){
-		$this->teachersNotes = new TeachersNotesClass();
-		$this->questions = new QuestionClass();
-		echo("Construct CaseClass<br/>");
+	public function __construct(
+			$caseID, 
+			$caseName, 
+			$caseDescription, 
+			$caseVideoName, 
+			$caseType, 
+			$caseCoverPic,
+			$caseVideoScreenshot,
+			$teachersNotes,
+			$questions){
+		$this->caseID = $caseID;
+		$this->caseName = $caseName;
+		$this->caseDescription = $caseDescription;
+		$this->caseVideoName = $caseVideoName;
+		$this->caseType = $caseType;
+		$this->caseCoverPic = $caseCoverPic;
+		$this->caseVideoScreenshot = $caseVideoScreenshot;
+		$this->teachersNotes = $teachersNotes;
+		$this->questions = $questions;
+		echo("Construct CaseClass:".$this->caseID."<br/>");
 	}
 }
 ?>

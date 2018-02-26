@@ -5,9 +5,12 @@ class TeachersNotesClass
 	public $noteVideo;
 	public $noteCover;
 	
-	public function __construct()
+	public function __construct($noteID,$noteVideo,$noteCover)
 	{
-		echo("Construct TeachersNoteClass<br/>");
+		$this->noteID = $noteID;
+		$this->noteVideo = $noteVideo;
+		$this->noteCover = $noteCover;
+		echo("Construct TeachersNoteClass: ".$this->noteID."<br/>");
 	}
 }
 ?>

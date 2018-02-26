@@ -8,10 +8,13 @@ class QuestionClass
 	public $explanation;
 	public $options;
 	
-	public function __construct()
+	public function __construct($questionID,$questionContent,$explanation,$options)
 	{
-		$this->options = new OptionClass();
-		echo("Construct QuestionClass<br/>");
+		$this->questionID = $questionID;
+		$this->questionContent = $questionContent;
+		$this->explanation = $explanation;
+		$this->options = $options;
+		echo("Construct QuestionClass: ".$this->questionID."<br/>");
 	}
 }
 ?>
