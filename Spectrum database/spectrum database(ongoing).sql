@@ -1,6 +1,6 @@
 drop table if exists spectrum_option_records;
 drop table if exists spectrum_case_user_relationship;
-drop table if exists sepctrum_users;
+drop table if exists spectrum_users;
 drop table if exists spectrum_option;
 drop table if exists spectrum_question;
 drop table if exists spectrum_teachersNote;
@@ -47,7 +47,7 @@ create table spectrum_teachersNote (
 );
 
 
-create table sepctrum_users (
+create table spectrum_users (
  userID varchar(30),
  userAccount varchar(30) unique,
  userPassword varchar(30),
@@ -70,7 +70,7 @@ create table spectrum_case_user_relationship (
  userID varchar(30),
  primary key (caseUserID),
  foreign key (caseID) references spectrum_case (caseID),
- foreign key (userID) references sepctrum_users (userID)
+ foreign key (userID) references spectrum_users (userID)
 );
 
 
@@ -92,7 +92,7 @@ insert into spectrum_teachersNote values
 ('1', 'case_MZL_10_TN', 'teachers_note_cover_10', '1'),
 ('2', 'case_CR_11_TN', 'teachers_note_cover_11', '2');
 
-insert into sepctrum_users values
+insert into spectrum_users values
 ('1', 'bzl0048', 'bzl0048', 'Boning Liang');
 
 -- insert into spectrum_option_records ();

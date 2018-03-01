@@ -1,5 +1,5 @@
 <?php
-include 'caseClass.php';
+include 'classes/caseClass.php';
 
 // test data
 $caseID = "1";
