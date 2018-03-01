@@ -1,6 +1,6 @@
 <!-- Get cases by userID -->
 <?php
-include '../databaseController.php';
+include '../database/databaseController.php';
 include '../classes/caseClass.php';
 
 $userID=$_POST["userID"];
