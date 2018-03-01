@@ -1,3 +1,4 @@
+<!-- Get cases by userID -->
 <?php
 include 'databaseController.php';
 include 'caseClass.php';
