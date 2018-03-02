@@ -1,7 +1,6 @@
 <?php
 include 'teachersNotesClass.php';
 include 'questionClass.php';
-include '../database/databaseController.php';
 
 class CaseClass
 {

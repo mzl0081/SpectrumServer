@@ -1,4 +1,6 @@
 <?php
+
+// phpinfo();
 include 'classes/caseClass.php';
 
 // test data
