@@ -51,7 +51,9 @@ create table spectrum_users (
  userID varchar(30),
  userAccount varchar(30) unique,
  userPassword varchar(30),
+ userEmail varchar(30),
  userDisplayName varchar(30),
+ userAvatar varchar(30),
  primary key (userID)
 );
 
@@ -71,6 +73,27 @@ create table spectrum_case_user_relationship (
  primary key (caseUserID),
  foreign key (caseID) references spectrum_case (caseID),
  foreign key (userID) references spectrum_users (userID)
+);
+
+create table spectrum_user_friends (
+ userFriendsID varchar(30),
+ myUserID varchar(30),
+ friendUserID varchar(30),
+ primary key (userFriendsID),
+ foreign key (myUserID) references spectrum_users (userID),
+ foreign key (friendUserID) references spectrum_users (userID)
+);
+
+create table spectrum_user_messages (
+ userMessageID varchar(30),
+ myUserID varchar(30),
+ friendUserID varchar(30),
+ messageTime datetime,
+ messageContent text,
+ messageTitle text,
+ primary key (userMessageID),
+ foreign key (myUserID) references spectrum_users (userID),
+ foreign key (friendUserID) references spectrum_users (userID)
 );
 
 
