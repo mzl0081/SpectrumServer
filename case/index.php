@@ -5,16 +5,7 @@ include '../classes/caseClass.php';
 
 $userID=$_POST["userID"];
 
-$serverAddress = 'acadmysql.duc.auburn.edu';
-$username = 'bzl0048';
-$password = 'boningliang';
-$database = 'bzl0048db';
-
-$dbController = new DatabaseController(
-		$serverAddress, 
-		$username, 
-		$password, 
-		$database);
+$dbController = new DatabaseController();
 
 $resultCase = $dbController->fetchCasesByUserID($userID);
 

@@ -28,6 +28,11 @@ select * from spectrum_users where userAccount = 'boningliang';
 update spectrum_users set userPassword = 'boning' where userAccount = 'bzl0048';
 
 
+-- update (reset) password examples
+
+update spectrum_users set userPassword = 'boning' where userEmail = 'bzl0048@auburn.edu';
+
+
 
 
 
