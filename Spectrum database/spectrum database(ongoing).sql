@@ -1,3 +1,5 @@
+drop table if exists spectrum_user_messages;
+drop table if exists spectrum_user_friends;
 drop table if exists spectrum_option_records;
 drop table if exists spectrum_case_user_relationship;
 drop table if exists spectrum_users;
@@ -48,14 +50,16 @@ create table spectrum_teachersNote (
 
 
 create table spectrum_users (
- userID varchar(30),
+ userID int auto_increment,
  userAccount varchar(30) unique,
  userPassword varchar(30),
- userEmail varchar(30),
+ userEmail varchar(30) unique,
  userDisplayName varchar(30),
  userAvatar varchar(30),
  primary key (userID)
 );
+
+
 
 create table spectrum_option_records (
  recordID varchar(30),
@@ -115,8 +119,10 @@ insert into spectrum_teachersNote values
 ('1', 'case_MZL_10_TN', 'teachers_note_cover_10', '1'),
 ('2', 'case_CR_11_TN', 'teachers_note_cover_11', '2');
 
+
 insert into spectrum_users values
-('1', 'bzl0048', 'bzl0048', 'Boning Liang');
+(null, 'bzl0048', 'bzl0048','bzl0048@auburn.edu', 'Boning Liang', null),
+(null, 'bzl0049', 'bzl0049','bzl0049@auburn.edu', 'Boning Liang', null);
 
 -- insert into spectrum_option_records ();
 
