@@ -31,6 +31,11 @@ class DatabaseController {
 		return mysqli_query($this->connection, $sql);
 	}
 	
+	function userProfile($username, $password){
+		$sql = "select userAccount, userEmail, userDisplayName, userAvatar from spectrum_users where userAccount='$username' and userPassword='$password'";
+		return mysqli_query($this->connection, $sql);
+	}
+	
 	function fetchAllUsers() {
 		
 	}

@@ -17,9 +17,6 @@ while ($row = mysql_fetch_array($resultCase)) {
 	$caseType = $row[4];
 	$caseCoverPic = $row[5];
 	$caseVideoScreenshot = $row[6];
-// 	$resultQuestion = $dbController->
-// 	$teachersNotes,
-// 	$questions
 	$case = new CaseClass(
 			$caseID, 
 			$caseName, 
