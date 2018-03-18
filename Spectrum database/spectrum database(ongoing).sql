@@ -1,3 +1,5 @@
+drop table if exists spectrum_topic_reply;
+drop table if exists spectrum_topics;
 drop table if exists spectrum_user_messages;
 drop table if exists spectrum_user_friends;
 drop table if exists spectrum_option_records;
@@ -10,8 +12,8 @@ drop table if exists spectrum_case;
 
 
 create table spectrum_case (
- caseID varchar(30),
- caseName varchar(30),
+ caseID int auto_increment,
+ caseName text,
  caseDescription text,
  caseVideoName varchar(30),
  caseType varchar(30),
@@ -21,29 +23,29 @@ create table spectrum_case (
 );
 
 create table spectrum_question (
- questionID varchar(30),
+ questionID int auto_increment,
  questionContent text,
  explanation text,
- caseID varchar(30),
+ caseID int,
  primary key (questionID),
  foreign key (caseID) references spectrum_case (caseID)
 );
 
 create table spectrum_option (
- optionID varchar(30),
+ optionID int auto_increment,
  optionContent text,
  isSelect boolean not null,
  isCorrect boolean not null,
- questionID varchar(30),
+ questionID int,
  primary key (optionID),
  foreign key (questionID) references spectrum_question (questionID)
 );
 
 create table spectrum_teachersNote (
- noteID varchar(30),
+ noteID int auto_increment,
  noteVideo varchar(30),
  noteCover varchar(30),
- caseID varchar(30),
+ caseID int,
  primary key (noteID),
  foreign key (caseID) references spectrum_case (caseID)
 );
@@ -52,18 +54,44 @@ create table spectrum_teachersNote (
 create table spectrum_users (
  userID int auto_increment,
  userAccount varchar(30) unique,
- userPassword varchar(30),
+ userPassword varchar(100),
  userEmail varchar(30) unique,
  userDisplayName varchar(30),
  userAvatar varchar(30),
  primary key (userID)
 );
 
+create table spectrum_topics (
+topicID int auto_increment,
+topicTitle text,
+topicContent text,
+userID int,
+topicTime timestamp default current_timestamp,
+topicNumberOfReplies int default 0,
+numberOfLikes int default 0,
+numberOfDislikes int default 0,
+primary key (topicID),
+foreign key (userID) references spectrum_users (userID)
+);
+
+
+
+create table spectrum_topic_reply (
+topicReplyID int auto_increment,
+topicID int,
+userID int,
+replyContent text,
+replyTime timestamp default current_timestamp,
+primary key (topicReplyID),
+foreign key (userID) references spectrum_users (userID),
+foreign key (topicID) references spectrum_topics (topicID)
+);
+
 
 
 create table spectrum_option_records (
- recordID varchar(30),
- optionID varchar(30),
+ recordID int auto_increment,
+ optionID int,
  isSelect varchar(30),
  primary key (recordID),
  foreign key (optionID) references spectrum_option (optionID)
@@ -71,28 +99,28 @@ create table spectrum_option_records (
 
 
 create table spectrum_case_user_relationship (
- caseUserID varchar(30),
- caseID varchar(30),
- userID varchar(30),
+ caseUserID int auto_increment,
+ caseID int,
+ userID int,
  primary key (caseUserID),
  foreign key (caseID) references spectrum_case (caseID),
  foreign key (userID) references spectrum_users (userID)
 );
 
 create table spectrum_user_friends (
- userFriendsID varchar(30),
- myUserID varchar(30),
- friendUserID varchar(30),
+ userFriendsID int auto_increment,
+ myUserID int,
+ friendUserID int,
  primary key (userFriendsID),
  foreign key (myUserID) references spectrum_users (userID),
  foreign key (friendUserID) references spectrum_users (userID)
 );
 
 create table spectrum_user_messages (
- userMessageID varchar(30),
- myUserID varchar(30),
- friendUserID varchar(30),
- messageTime datetime,
+ userMessageID int auto_increment,
+ myUserID int,
+ friendUserID int,
+ messageTime timestamp default current_timestamp,
  messageContent text,
  messageTitle text,
  primary key (userMessageID),
@@ -101,31 +129,104 @@ create table spectrum_user_messages (
 );
 
 
+
+
 insert into spectrum_case values
-('1', 'Case study 10: Oppositional Defiant Disorder', 'The teacher does not know how to handle the student who has oppositional defiant disorder. In this case, the teacher does not pay much attention to Willy. When Willy\'s behavior problems appear, the teacher doesn\'t know how to help Willy and solve the problem by herself. She instead sends him to the positive behavior teacher to correct his behavior. For this scenario, I would like for teachers to be aware of this kind of situation and be encouraged to learn this disorder.', 'case_MZL_10', '1', 'case_video_cover_10', 'case_video_screenshot_10'),
-('2', 'Case study 11: Extroverted Student', 'Jaden is an eight year old in the second grade classroom. His misbehaviors are mostly because of speaking out of turn. The teacher does not know how to properly deal with this situation that Jaden talks out of turn when she is not asking for responses. In this case, when Jaden suddenly stands up and gives his answer in class, the teacher makes him move his clip down after class to punish him. However, it leads to a negetive result that Jaden becomes a lot quieter and lacks motivation to do his work.', 'case_CR_11', '1', 'case_video_cover_11', 'case_video_screenshot_11');
+(null, 'Case study 10: Oppositional Defiant Disorder', 'The teacher does not know how to handle the student who has oppositional defiant disorder. In this case, the teacher does not pay much attention to Willy. When Willy\'s behavior problems appear, the teacher doesn\'t know how to help Willy and solve the problem by herself. She instead sends him to the positive behavior teacher to correct his behavior. For this scenario, I would like for teachers to be aware of this kind of situation and be encouraged to learn this disorder.', 'case_MZL_10', 1, 'case_video_cover_10', 'case_video_screenshot_10'),
+(null, 'Case study 11: Extroverted Student', 'Jaden is an eight year old in the second grade classroom. His misbehaviors are mostly because of speaking out of turn. The teacher does not know how to properly deal with this situation that Jaden talks out of turn when she is not asking for responses. In this case, when Jaden suddenly stands up and gives his answer in class, the teacher makes him move his clip down after class to punish him. However, it leads to a negetive result that Jaden becomes a lot quieter and lacks motivation to do his work.', 'case_CR_11', 1, 'case_video_cover_11', 'case_video_screenshot_11');
 
 insert into spectrum_question values
-('1', 'Considering Willy\'s behavioral problems, should he be immediately sent to the Positive Behavior teacher?', 'One successful example shows that teachers should pay attention and show respect to students who have oppositional defiant disorder. Because most of time students seek attention from teachers. Sending them to the positive behavior teachers will hurt their confidence and self-esteem. In this case, teachers shouldn\'t send them immediately to special department when they have behavior problems. And teachers also should know when to show much attention and less attention. For example, show less attention when they don\'t improve their behavior.', '1'),
-('2', 'Considering Jaden\'s behavioral problems, is there any better way for the teacher to handle this? ', 'It seems that Jaden never has enough opportunity to verbalize what he wants to say and this is why he talks out of turn. Teachers could implement more mixed responses style questions in the class which will lead to fewer disruptions made by students like Jaden. If the teacher uses this approach, Jaden will have more opportunities to voice his opinions and ideas in class.', '2');
+(null, 'Considering Willy\'s behavioral problems, should he be immediately sent to the Positive Behavior teacher?', 'One successful example shows that teachers should pay attention and show respect to students who have oppositional defiant disorder. Because most of time students seek attention from teachers. Sending them to the positive behavior teachers will hurt their confidence and self-esteem. In this case, teachers shouldn\'t send them immediately to special department when they have behavior problems. And teachers also should know when to show much attention and less attention. For example, show less attention when they don\'t improve their behavior.', 1),
+(null, 'Considering Jaden\'s behavioral problems, is there any better way for the teacher to handle this? ', 'It seems that Jaden never has enough opportunity to verbalize what he wants to say and this is why he talks out of turn. Teachers could implement more mixed responses style questions in the class which will lead to fewer disruptions made by students like Jaden. If the teacher uses this approach, Jaden will have more opportunities to voice his opinions and ideas in class.', 2);
 
 insert into spectrum_option values
-('1', 'Yes, Willy should be sent to the Positive Behavior teacher.', FALSE, false, '1'),
-('2', 'No, Willy shouldn\'t be sent to the Positive Behavior teacher.', false, true, '1'),
-('3', 'Yes, the teacher should give more mixed responses style questions to allow Jaden to voice his ideas without distracting others.', false, true, '2'),
-('4', 'No. Jaden should take his punishment to move his clip down.', false, false, '2');
+(null, 'Yes, Willy should be sent to the Positive Behavior teacher.', FALSE, false, 1),
+(null, 'No, Willy shouldn\'t be sent to the Positive Behavior teacher.', false, true, 1),
+(null, 'Yes, the teacher should give more mixed responses style questions to allow Jaden to voice his ideas without distracting others.', false, true, 2),
+(null, 'No. Jaden should take his punishment to move his clip down.', false, false, 2);
 
 insert into spectrum_teachersNote values
-('1', 'case_MZL_10_TN', 'teachers_note_cover_10', '1'),
-('2', 'case_CR_11_TN', 'teachers_note_cover_11', '2');
+(null, 'case_MZL_10_TN', 'teachers_note_cover_10', 1),
+(null, 'case_CR_11_TN', 'teachers_note_cover_11', 2);
+
+
+
+-- create table spectrum_users (
+--  userID int auto_increment,
+--  userAccount varchar(30) unique,
+--  userPassword varchar(30),
+--  userEmail varchar(30) unique,
+--  userDisplayName varchar(30),
+--  userAvatar varchar(30),
+--  primary key (userID)
+-- );
 
 
 insert into spectrum_users values
-(null, 'bzl0048', 'bzl0048','bzl0048@auburn.edu', 'Boning Liang', null),
-(null, 'bzl0049', 'bzl0049','bzl0049@auburn.edu', 'Boning Liang', null);
+(null, 'bzl0048', password('bzl0048'),'bzl0048@auburn.edu', 'Boning Liang', null),
+(null, 'bzl0049', password('bzl0049'),'bzl0049@auburn.edu', 'Chang Ren', null),
+(null, 'bzl0050', password('bzl0050'),'bzl0050@auburn.edu', 'Muzi Li', null),
+(null, 'bzl0051', password('bzl0051'),'bzl0051@auburn.edu', 'Dongji Feng', null),
+(null, 'bzl0052', password('bzl0052'),'bzl0052@auburn.edu', 'Jingjing Li', null);
 
 -- insert into spectrum_option_records ();
 
 insert into spectrum_case_user_relationship values
-('1', '1', '1'),
-('2', '2', '1');
+(null, 1, 1),
+(null, 2, 1);
+
+
+-- create table spectrum_topics (
+-- topicID int auto_increment,
+-- topicTitle text,
+-- topicContent text,
+-- userID int,
+-- topicTime timestamp default current_timestamp,
+-- topicNumberOfReplies int default 0,
+-- numberOfLikes int default 0,
+-- numberOfDislikes int default 0,
+-- primary key (topicID),
+-- foreign key (userID) references spectrum_users (userID)
+-- );
+
+insert into spectrum_topics values
+(null, 'test topic 1', 'test topic content1', 1, null, 0, 0, 0),
+(null, 'test topic 2', 'test topic content2', 2, null, 0, 0, 0),
+(null, 'test topic 3', 'test topic content3', 3, null, 0, 0, 0),
+(null, 'test topic 4', 'test topic content4', 4, null, 0, 0, 0),
+(null, 'test topic 5', 'test topic content5', 5, null, 0, 0, 0),
+(null, 'test topic 6', 'test topic content6', 1, null, 0, 0, 0);
+
+-- create table spectrum_topic_reply (
+-- topicUserID int auto_increment,
+-- topicID int,
+-- userID int,
+-- replyContent text,
+-- replyTime timestamp default current_timestamp,
+-- primary key (topicUserID),
+-- foreign key (userID) references spectrum_users (userID),
+-- foreign key (topicID) references spectrum_topics (topicID)
+-- );
+insert into spectrum_topic_reply values
+(null, 1, 2, 'test reply', null);
+
+
+select * from spectrum_users;
+
+-- select * from spectrum_topics;
+
+-- select * from spectrum_topics where topicID = 1;
+
+-- select * from spectrum_topic_reply where topicID = 1;
+
+
+
+-- select topicID, topicTitle, topicContent, userID, userDisplayName, topicTime, topicNumberOfReplies from spectrum_topics join spectrum_users using(userID);
+
+-- select topicID, topicTitle, topicContent, userID, userDisplayName, topicTime, topicNumberOfReplies from spectrum_topics join spectrum_users using(userID) where topicID = 1;
+
+-- select topicID, topicTitle, topicContent, userID, topicTime from spectrum_topics where topicID = 1;
+
+-- select topicReplyID, userID, userDisplayName, replyContent, replyTime from spectrum_topic_reply join spectrum_users using(userID) where topicID = 1;
+
+
