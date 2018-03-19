@@ -3,13 +3,13 @@
 include '../database/databaseController.php';
 include '../classes/caseClass.php';
 
-$userID=$_POST["userID"];
+$userID=$_GET["userID"];
 
 $dbController = new DatabaseController();
 
 $resultCase = $dbController->fetchCasesByUserID($userID);
 
-while ($row = mysql_fetch_array($resultCase)) {
+while ($row = mysqli_fetch_array($resultCase)) {
 	$caseID = $row[0];
 	$caseName = $row[1];
 	$caseDescription = $row[2];

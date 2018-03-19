@@ -16,22 +16,19 @@ if($result == false){
 }
 else{
 	$replies = [];
-// 	topicReplyID, userID, userDisplayName, userAvatar, replyContent, replyTime
 	while($row = mysqli_fetch_array($result)){
-		$topicReplyID = $row[0];	
-		$userID = $row[1];
-		$userDisplayName = $row[2];
-		$userAvatar = $row[3];
-		$replyContent = $row[4];
-		$replyTime = $row[5];
-		
+		$replyID = $row[0];
+		$replyUserID = $row[1];
+		$replyUserDisplayName = $row[2];
+		$replyContent = $row[3];
+		$replyDateTime = $row[4];
+
 		$reply = new ReplyClass(
-				$topicReplyID,
-				$userID, 
-				$userDisplayName, 
-				$userAvatar, 
+				$replyID,
 				$replyContent,
-				$replyTime);
+				$replyUserID,
+				$replyUserDisplayName,
+				$replyDateTime);
 		array_push($replies, $reply);
 	}
 	echo json_encode($replies);

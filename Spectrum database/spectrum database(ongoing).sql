@@ -9,6 +9,18 @@ drop table if exists spectrum_option;
 drop table if exists spectrum_question;
 drop table if exists spectrum_teachersNote;
 drop table if exists spectrum_case;
+drop table if exists spectrum_test;
+drop trigger if exists spectrum_trigger_insert_reply;
+drop trigger if exists spectrum_trigger_delete_reply;
+
+create table spectrum_test (
+ ID int auto_increment,
+ primary key (ID)
+);
+
+insert into spectrum_test values
+(null),
+(null);
 
 
 create table spectrum_case (
@@ -128,6 +140,20 @@ create table spectrum_user_messages (
  foreign key (friendUserID) references spectrum_users (userID)
 );
 
+create trigger spectrum_trigger_insert_reply 
+after insert on spectrum_topic_reply
+for each row
+update spectrum_topics
+set topicNumberOfReplies = topicNumberOfReplies + 1
+where topicID = new.topicID;
+
+create trigger spectrum_trigger_delete_reply 
+after delete on spectrum_topic_reply
+for each row
+update spectrum_topics
+set topicNumberOfReplies = topicNumberOfReplies - 1
+where topicID = old.topicID;
+
 
 
 
@@ -161,13 +187,19 @@ insert into spectrum_teachersNote values
 --  primary key (userID)
 -- );
 
-
 insert into spectrum_users values
-(null, 'bzl0048', password('bzl0048'),'bzl0048@auburn.edu', 'Boning Liang', null),
-(null, 'bzl0049', password('bzl0049'),'bzl0049@auburn.edu', 'Chang Ren', null),
-(null, 'bzl0050', password('bzl0050'),'bzl0050@auburn.edu', 'Muzi Li', null),
-(null, 'bzl0051', password('bzl0051'),'bzl0051@auburn.edu', 'Dongji Feng', null),
-(null, 'bzl0052', password('bzl0052'),'bzl0052@auburn.edu', 'Jingjing Li', null);
+(null, 'bzl0048', 'bzl0048','bzl0048@auburn.edu', 'Boning Liang', "default_avatar"),
+(null, 'bzl0049', 'bzl0049','bzl0049@auburn.edu', 'Chang Ren', "default_avatar"),
+(null, 'bzl0050', 'bzl0050','bzl0050@auburn.edu', 'Muzi Li', "default_avatar"),
+(null, 'bzl0051', 'bzl0051','bzl0051@auburn.edu', 'Dongji Feng', "default_avatar"),
+(null, 'bzl0052', 'bzl0052','bzl0052@auburn.edu', 'Jingjing Li', "default_avatar");
+
+-- insert into spectrum_users values
+-- (null, 'bzl0048', password('bzl0048'),'bzl0048@auburn.edu', 'Boning Liang', null),
+-- (null, 'bzl0049', password('bzl0049'),'bzl0049@auburn.edu', 'Chang Ren', null),
+-- (null, 'bzl0050', password('bzl0050'),'bzl0050@auburn.edu', 'Muzi Li', null),
+-- (null, 'bzl0051', password('bzl0051'),'bzl0051@auburn.edu', 'Dongji Feng', null),
+-- (null, 'bzl0052', password('bzl0052'),'bzl0052@auburn.edu', 'Jingjing Li', null);
 
 -- insert into spectrum_option_records ();
 
@@ -208,10 +240,25 @@ insert into spectrum_topics values
 -- foreign key (topicID) references spectrum_topics (topicID)
 -- );
 insert into spectrum_topic_reply values
-(null, 1, 2, 'test reply', null);
+(null, 1, 2, 'test reply test reply test reply test replytest replytest reply test replyest reply test reply test reply test replytest replytest reply tesest reply test reply test reply test replytest replytest reply tes', null),
+(null, 2, 2, 'test reply', null),
+(null, 3, 2, 'test reply', null),
+(null, 4, 2, 'test reply', null),
+(null, 5, 2, 'test reply', null),
+(null, 6, 2, 'test reply', null),
+(null, 1, 1, 'test reply', null),
+(null, 1, 2, 'test reply', null),
+(null, 1, 3, 'test reply', null);
+
+select topicReplyID, userID, userDisplayName, userAvatar, replyContent, replyTime from spectrum_topic_reply join spectrum_users using(userID) where topicID = 1;
+
+-- select topicReplyID, userID, userDisplayName, replyContent, replyTime from spectrum_topic_reply join spectrum_users using(userID) where topicID = 1;
+
+-- select userAccount, userEmail, userDisplayName, userAvatar from spectrum_users where (userAccount='bzl0048') and (userPassword='bzl0048');
+-- select userAccount, userEmail, userDisplayName, userAvatar from spectrum_users where (userAccount='bzl0048') and (userPassword=Password('bzl0048'));
 
 
-select * from spectrum_users;
+-- select * from spectrum_users;
 
 -- select * from spectrum_topics;
 

@@ -3,10 +3,11 @@ include '../../database/databaseController.php';
 
 $topic = $_GET["topic"];
 $content = $_GET["content"];
-$userID = $_GET["userID"];
+$userName = $_GET["userName"];
+
 
 $dbController = new DatabaseController();
-$result = $dbController->insertNewTopic($topic, $content, $userID);
+$result = $dbController->insertNewTopic($topic, $content, $userName);
 echo '{"result":'.$result.'}';
 
 ?>
