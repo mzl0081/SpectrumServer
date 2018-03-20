@@ -2,7 +2,13 @@ drop table if exists spectrum_topic_reply;
 drop table if exists spectrum_topics;
 drop table if exists spectrum_user_messages;
 drop table if exists spectrum_user_friends;
+
+drop table if exists spectrum_quiz_user_relationship;
+drop table if exists spectrum_option_quiz_records;
+drop table if exists spectrum_quiz_records;
+
 drop table if exists spectrum_option_records;
+
 drop table if exists spectrum_case_user_relationship;
 drop table if exists spectrum_users;
 drop table if exists spectrum_option;
@@ -10,8 +16,10 @@ drop table if exists spectrum_question;
 drop table if exists spectrum_teachersNote;
 drop table if exists spectrum_case;
 drop table if exists spectrum_test;
+drop table if exists spectrum_progress;
 drop trigger if exists spectrum_trigger_insert_reply;
 drop trigger if exists spectrum_trigger_delete_reply;
+
 
 create table spectrum_test (
  ID int auto_increment,
@@ -99,15 +107,32 @@ foreign key (userID) references spectrum_users (userID),
 foreign key (topicID) references spectrum_topics (topicID)
 );
 
-
-
-create table spectrum_option_records (
- recordID int auto_increment,
- optionID int,
- isSelect varchar(30),
- primary key (recordID),
- foreign key (optionID) references spectrum_option (optionID)
+create table spectrum_quiz_records (
+quizID int auto_increment,
+userID int not null,
+primary key (quizID),
+foreign key (userID) references spectrum_users (userID)
 );
+
+create table spectrum_option_quiz_records (
+ recordID int auto_increment,
+ quizID int not null,
+ optionID int not null,
+ isSelect boolean not null,
+ primary key (recordID),
+ foreign key (optionID) references spectrum_option (optionID),
+ foreign key (quizID) references spectrum_quiz_records (quizID)
+);
+
+
+
+-- create table spectrum_option_records (
+--  recordID int auto_increment,
+--  optionID int,
+--  isSelect varchar(30),
+--  primary key (recordID),
+--  foreign key (optionID) references spectrum_option (optionID)
+-- );
 
 
 create table spectrum_case_user_relationship (
@@ -157,6 +182,9 @@ where topicID = old.topicID;
 
 
 
+
+
+
 insert into spectrum_case values
 (null, 'Case study 10: Oppositional Defiant Disorder', 'The teacher does not know how to handle the student who has oppositional defiant disorder. In this case, the teacher does not pay much attention to Willy. When Willy\'s behavior problems appear, the teacher doesn\'t know how to help Willy and solve the problem by herself. She instead sends him to the positive behavior teacher to correct his behavior. For this scenario, I would like for teachers to be aware of this kind of situation and be encouraged to learn this disorder.', 'case_MZL_10', 1, 'case_video_cover_10', 'case_video_screenshot_10'),
 (null, 'Case study 11: Extroverted Student', 'Jaden is an eight year old in the second grade classroom. His misbehaviors are mostly because of speaking out of turn. The teacher does not know how to properly deal with this situation that Jaden talks out of turn when she is not asking for responses. In this case, when Jaden suddenly stands up and gives his answer in class, the teacher makes him move his clip down after class to punish him. However, it leads to a negetive result that Jaden becomes a lot quieter and lacks motivation to do his work.', 'case_CR_11', 1, 'case_video_cover_11', 'case_video_screenshot_11');
@@ -166,7 +194,7 @@ insert into spectrum_question values
 (null, 'Considering Jaden\'s behavioral problems, is there any better way for the teacher to handle this? ', 'It seems that Jaden never has enough opportunity to verbalize what he wants to say and this is why he talks out of turn. Teachers could implement more mixed responses style questions in the class which will lead to fewer disruptions made by students like Jaden. If the teacher uses this approach, Jaden will have more opportunities to voice his opinions and ideas in class.', 2);
 
 insert into spectrum_option values
-(null, 'Yes, Willy should be sent to the Positive Behavior teacher.', FALSE, false, 1),
+(null, 'Yes, Willy should be sent to the Positive Behavior teacher.', false, false, 1),
 (null, 'No, Willy shouldn\'t be sent to the Positive Behavior teacher.', false, true, 1),
 (null, 'Yes, the teacher should give more mixed responses style questions to allow Jaden to voice his ideas without distracting others.', false, true, 2),
 (null, 'No. Jaden should take his punishment to move his clip down.', false, false, 2);
@@ -194,18 +222,13 @@ insert into spectrum_users values
 (null, 'bzl0051', 'bzl0051','bzl0051@auburn.edu', 'Dongji Feng', "default_avatar"),
 (null, 'bzl0052', 'bzl0052','bzl0052@auburn.edu', 'Jingjing Li', "default_avatar");
 
--- insert into spectrum_users values
--- (null, 'bzl0048', password('bzl0048'),'bzl0048@auburn.edu', 'Boning Liang', null),
--- (null, 'bzl0049', password('bzl0049'),'bzl0049@auburn.edu', 'Chang Ren', null),
--- (null, 'bzl0050', password('bzl0050'),'bzl0050@auburn.edu', 'Muzi Li', null),
--- (null, 'bzl0051', password('bzl0051'),'bzl0051@auburn.edu', 'Dongji Feng', null),
--- (null, 'bzl0052', password('bzl0052'),'bzl0052@auburn.edu', 'Jingjing Li', null);
+
 
 -- insert into spectrum_option_records ();
 
-insert into spectrum_case_user_relationship values
-(null, 1, 1),
-(null, 2, 1);
+-- insert into spectrum_case_user_relationship values
+-- (null, 1, 1),
+-- (null, 2, 1);
 
 
 -- create table spectrum_topics (
@@ -250,7 +273,49 @@ insert into spectrum_topic_reply values
 (null, 1, 2, 'test reply', null),
 (null, 1, 3, 'test reply', null);
 
-select topicReplyID, userID, userDisplayName, userAvatar, replyContent, replyTime from spectrum_topic_reply join spectrum_users using(userID) where topicID = 1;
+
+-- http://localhost/SpectrumServer/API/NewAttempt/?userName=bzl0048&isSelect0=false&optionID0=1&isSelect1=false&optionID1=1
+
+
+-- after checked an option
+
+-- create table spectrum_quiz_records (
+-- quizID int auto_increment,
+-- userID int not null,
+-- primary key (quizID)
+-- );
+
+-- create table spectrum_option_quiz_records (
+--  recordID int auto_increment,
+--  quizID int not null,
+--  optionID int not null,
+--  isSelect varchar(30),
+--  primary key (recordID),
+--  foreign key (optionID) references spectrum_option (optionID),
+--  foreign key (quizID) references spectrum_quiz_records (quizID)
+-- );
+
+-- insert into spectrum_quiz_records values 
+-- (null, 1);
+
+-- insert into spectrum_option_quiz_records values
+-- (null, 1, 1, true);
+
+
+
+
+
+-- select * from spectrum_quiz_records;
+-- select * from spectrum_option_quiz_records;
+
+
+
+
+
+-- select * from spectrum_quiz_user_relationship where userID = 1
+
+
+-- select topicReplyID, userID, userDisplayName, userAvatar, replyContent, replyTime from spectrum_topic_reply join spectrum_users using(userID) where topicID = 1;
 
 -- select topicReplyID, userID, userDisplayName, replyContent, replyTime from spectrum_topic_reply join spectrum_users using(userID) where topicID = 1;
 

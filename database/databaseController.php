@@ -38,6 +38,30 @@ class DatabaseController {
 		return mysqli_query($this->connection, $sql);
 	}
 	
+	//insertNewAttempt
+	function insertNewAttempt($userName, $newAttempt){
+// 		$sql = "insert into spectrum_topic_reply values(null, '$topicID',(select userID from spectrum_users where userAccount='$userName'), '$content', null);";
+		
+		
+		
+		$sql = "insert into spectrum_quiz_records values (null, (select userID from spectrum_users where userAccount='$userName'));";
+		
+// 		echo $sql;
+		
+		mysqli_query($this->connection, $sql);
+		
+		$newAttemptID = mysqli_insert_id($this->connection);
+// 		echo count($newAttempt);
+		foreach ($newAttempt as &$attempt) {
+			$sql1 = "insert into spectrum_option_quiz_records values(null, $newAttemptID, $attempt->optionID, $attempt->isSelect)";
+// 			echo $sql1;
+			if (mysqli_query($this->connection, $sql1) == 0){
+				return 0;
+			}
+		}
+		return 1;
+	}
+	
 	function resetPassword($email, $newPassword){
 		$sql = "update spectrum_users set userPassword = '$newPassword' where userEmail = '$email';";
 		return mysqli_query($this->connection, $sql);
