@@ -3,9 +3,9 @@ include '../../database/databaseController.php';
 include '../../classes/attemptClass.php';
 
 
-if(isset($_GET["userName"])){
+if(isset($_GET["userName"]) && isset($_GET["caseID"])){
 	$userName = $_GET["userName"];
-	
+	$caseID = $_GET["caseID"];
 	$newAttempt = [];
 	for ($i = 0; ;$i++)
 	{
@@ -23,15 +23,10 @@ if(isset($_GET["userName"])){
 		}
 	}
 	$dbController = new DatabaseController();
-	$result = $dbController->insertNewAttempt($userName, $newAttempt);
+	$result = $dbController->insertNewAttempt($userName, $caseID, $newAttempt);
 	echo '{"result":'.$result.'}';
 }
 else {
 	echo '{"result":0}';
 }
-
-
-
-
-
 ?>

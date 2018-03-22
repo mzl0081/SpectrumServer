@@ -110,8 +110,11 @@ foreign key (topicID) references spectrum_topics (topicID)
 create table spectrum_quiz_records (
 quizID int auto_increment,
 userID int not null,
+caseID int not null,
+attemptTime timestamp default current_timestamp,
 primary key (quizID),
-foreign key (userID) references spectrum_users (userID)
+foreign key (userID) references spectrum_users (userID),
+foreign key (caseID) references spectrum_case (caseID)
 );
 
 create table spectrum_option_quiz_records (
@@ -245,12 +248,12 @@ insert into spectrum_users values
 -- );
 
 insert into spectrum_topics values
-(null, 'test topic 1', 'test topic content1', 1, null, 0, 0, 0),
-(null, 'test topic 2', 'test topic content2', 2, null, 0, 0, 0),
-(null, 'test topic 3', 'test topic content3', 3, null, 0, 0, 0),
-(null, 'test topic 4', 'test topic content4', 4, null, 0, 0, 0),
-(null, 'test topic 5', 'test topic content5', 5, null, 0, 0, 0),
-(null, 'test topic 6', 'test topic content6', 1, null, 0, 0, 0);
+(null, 'test discussion 1', 'test discussion content1', 1, null, 0, 0, 0),
+(null, 'test discussion 2', 'test discussion content2', 2, null, 0, 0, 0),
+(null, 'test discussion 3', 'test discussion content3', 3, null, 0, 0, 0),
+(null, 'test discussion 4', 'test discussion content4', 4, null, 0, 0, 0),
+(null, 'test discussion 5', 'test discussion content5', 5, null, 0, 0, 0),
+(null, 'test discussion 6', 'test discussion content6', 1, null, 0, 0, 0);
 
 -- create table spectrum_topic_reply (
 -- topicUserID int auto_increment,

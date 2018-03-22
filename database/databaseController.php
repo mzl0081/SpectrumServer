@@ -39,12 +39,12 @@ class DatabaseController {
 	}
 	
 	//insertNewAttempt
-	function insertNewAttempt($userName, $newAttempt){
+	function insertNewAttempt($userName, $caseID, $newAttempt){
 // 		$sql = "insert into spectrum_topic_reply values(null, '$topicID',(select userID from spectrum_users where userAccount='$userName'), '$content', null);";
 		
 		
 		
-		$sql = "insert into spectrum_quiz_records values (null, (select userID from spectrum_users where userAccount='$userName'));";
+		$sql = "insert into spectrum_quiz_records values (null, (select userID from spectrum_users where userAccount='$userName'), $caseID, null);";
 		
 // 		echo $sql;
 		
