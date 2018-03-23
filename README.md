@@ -57,25 +57,81 @@
       }
       
 ## AllTopics
+### Parameters
+
+### Return
+
+### Examples
+
 ## Login
+### Parameters
+
+### Return
+
+### Examples
 
 ## NewAttempt
+### Parameters
+
+### Return
+
+### Examples
 
 ## NewTopic
+### Parameters
+
+### Return
+
+### Examples
 
 ## Register/checkUsername
+### Parameters
+
+### Return
+
+### Examples
 
 ## Register/signup
+### Parameters
+
+### Return
+
+### Examples
 
 ## Replies
+### Parameters
+
+### Return
+
+### Examples
 
 ## ReplyTopic
+### Parameters
+
+### Return
+
+### Examples
 
 ## ResetPassword
+### Parameters
+
+### Return
+
+### Examples
 
 ## Topic
+### Parameters
+
+### Return
+
+### Examples
 
 ## User
+### Parameters
+
+### Return
+
+### Examples
 
 
 
