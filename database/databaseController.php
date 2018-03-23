@@ -105,8 +105,34 @@ class DatabaseController {
 				from spectrum_case
 				join (select distinct caseID 
 						from spectrum_case_user_relationship 
-						join sepctrum_users using($userID) 
-						where userID = '1') as T1 using(caseID);";
+						join spectrum_users using(userID) 
+						where userID = $userID) as T1 using(caseID);";
+		return mysqli_query($this->connection, $sql);
+	}
+	
+	function fetchCasesByUserName ($userName) {
+		$sql = "select *
+		from spectrum_case
+		join (select distinct caseID
+		from spectrum_case_user_relationship
+		join spectrum_users using(userID)
+		where userAccount = '$userName') as T1 using(caseID);";
+		return mysqli_query($this->connection, $sql);
+	}
+	
+	function fetchTeachersNoteByCaseID ($caseID) {
+		$sql = "select * from spectrum_teachersNote where caseID=$caseID;";
+		return mysqli_query($this->connection, $sql);
+	}
+	
+	function fetchQuestionsByCaseID ($caseID){
+		$sql = "select * from spectrum_question where caseID=$caseID;";
+		return mysqli_query($this->connection, $sql);
+	}
+	
+	function fetchOptionsByQuestionID ($questionID){
+		$sql = "select * from spectrum_option where questionID=$questionID;";
+		return mysqli_query($this->connection, $sql);
 	}
 	
 	function fetchUsername($username){

@@ -3,8 +3,9 @@ class OptionClass
 {
 	public $optionID;
 	public $option;
-	public $isCorrect;
 	public $isSelect;
+	public $isCorrect;
+	
 	
 	public function __construct($optionID, $option, $isCorrect, $isSelect)
 	{

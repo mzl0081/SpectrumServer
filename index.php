@@ -38,6 +38,8 @@ array_push($options, $option1,$option2);
 $question = new QuestionClass($questionID, $questionContent, $explanation, $options);
 $questions = array();
 array_push($questions, $question);
+
+
 $case = new CaseClass(
 		$caseID, 
 		$caseName, 

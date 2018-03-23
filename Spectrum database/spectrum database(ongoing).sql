@@ -182,6 +182,18 @@ update spectrum_topics
 set topicNumberOfReplies = topicNumberOfReplies - 1
 where topicID = old.topicID;
 
+create trigger spectrum_trigger_insert_user
+after insert on spectrum_users
+for each row
+insert into spectrum_case_user_relationship (caseID, userID)
+select caseID, new.userID from spectrum_case;
+
+create trigger spectrum_trigger_insert_case
+after insert on spectrum_case
+for each row
+insert into spectrum_case_user_relationship (caseID, userID)
+select new.caseID, userID from spectrum_users;
+
 
 
 
@@ -208,6 +220,7 @@ insert into spectrum_teachersNote values
 
 
 
+
 -- create table spectrum_users (
 --  userID int auto_increment,
 --  userAccount varchar(30) unique,
@@ -220,11 +233,10 @@ insert into spectrum_teachersNote values
 
 insert into spectrum_users values
 (null, 'bzl0048', 'bzl0048','bzl0048@auburn.edu', 'Boning Liang', "default_avatar"),
-(null, 'bzl0049', 'bzl0049','bzl0049@auburn.edu', 'Chang Ren', "default_avatar"),
-(null, 'bzl0050', 'bzl0050','bzl0050@auburn.edu', 'Muzi Li', "default_avatar"),
-(null, 'bzl0051', 'bzl0051','bzl0051@auburn.edu', 'Dongji Feng', "default_avatar"),
-(null, 'bzl0052', 'bzl0052','bzl0052@auburn.edu', 'Jingjing Li', "default_avatar");
-
+(null, 'czr0049', 'czr0049','czr0049@auburn.edu', 'Chang Ren', "default_avatar"),
+(null, 'mzl0081', 'mzl0081','mzl0081@auburn.edu', 'Muzi Li', "default_avatar"),
+(null, 'dzf0023', 'dzf0023','dzf0023@auburn.edu', 'Dongji Feng', "default_avatar"),
+(null, 'jzl0166', 'jzl0166','jzl0166@auburn.edu', 'Jingjing Li', "default_avatar");
 
 
 -- insert into spectrum_option_records ();
