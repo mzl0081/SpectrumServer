@@ -60,7 +60,7 @@
 ### Parameters
 > No parameters
 ### Return
-
+> All Discussions associate with userID and Time.
 ### Examples
 
 ## Login
