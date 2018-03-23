@@ -55,6 +55,27 @@
           }
       ]
       }
+      
+## AllTopics
+## Login
+
+## NewAttempt
+
+## NewTopic
+
+## Register/checkUsername
+
+## Register/signup
+
+## Replies
+
+## ReplyTopic
+
+## ResetPassword
+
+## Topic
+
+## User
 
 
 
