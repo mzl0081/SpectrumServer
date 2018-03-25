@@ -22,7 +22,7 @@ class DatabaseController {
 	
 	function insertUser($username, $userPassword, $userEmail) {
 		
-		$sql = "insert into spectrum_users values(null, '$username', '$userPassword','$userEmail', '$username', null);";
+		$sql = "insert into spectrum_users values(null, '$username', '$userPassword','$userEmail', '$username', 'default_avatar');";
 		return mysqli_query($this->connection, $sql);
 	}
 	
