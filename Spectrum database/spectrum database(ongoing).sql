@@ -1,3 +1,5 @@
+drop trigger if exists spectrum_trigger_before_insert_register_account;
+drop table if exists spectrum_register_account;
 drop table if exists spectrum_topic_reply;
 drop table if exists spectrum_topics;
 drop table if exists spectrum_user_messages;
@@ -29,6 +31,15 @@ create table spectrum_test (
 insert into spectrum_test values
 (null),
 (null);
+
+
+create table spectrum_register_account (
+registerID int auto_increment,
+registerEmail varchar(30),
+registerTime timestamp default current_timestamp,
+registerVerficationCode varchar(30),
+primary key (registerID)
+);
 
 
 create table spectrum_case (
@@ -194,9 +205,22 @@ for each row
 insert into spectrum_case_user_relationship (caseID, userID)
 select new.caseID, userID from spectrum_users;
 
+-- create trigger spectrum_trigger_before_insert_register_account
+-- before insert on spectrum_register_account
+-- for each row
+-- delete from spectrum_register_account where registerEmail = new.registerEmail;
 
 
+-- create table spectrum_register_account (
+-- registerID int auto_increment,
+-- registerEmail varchar(30),
+-- registerTime timestamp default current_timestamp,
+-- registerVerficationCode varchar(30),
+-- primary key (registerID)
+-- );
 
+-- insert into spectrum_register_account values
+-- (null, '952735135@qq.com', null, '123456');
 
 
 
@@ -287,6 +311,9 @@ insert into spectrum_topic_reply values
 (null, 1, 1, 'test reply', null),
 (null, 1, 2, 'test reply', null),
 (null, 1, 3, 'test reply', null);
+
+
+-- select * from spectrum_register_account where registerEmail='952735135@qq.com' and registerVerficationCode='123456' and now()-registerTime < 600;
 
 
 -- http://localhost/SpectrumServer/API/NewAttempt/?userName=bzl0048&isSelect0=false&optionID0=1&isSelect1=false&optionID1=1

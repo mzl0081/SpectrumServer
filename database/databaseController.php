@@ -139,5 +139,16 @@ class DatabaseController {
 		$sql = "select * from spectrum_users where userAccount = '$username'";
 		return mysqli_query($this->connection, $sql);
 	}
+	
+	function insert_spectrum_register_account($email, $code){
+		$sql = "insert into spectrum_register_account values (null, '$email', null, '$code');";
+		return mysqli_query($this->connection, $sql);
+	}
+	
+	function verifyCode($code, $email){
+		$sql = "select * from spectrum_register_account where registerEmail='$email' and registerVerficationCode='$code' and now()-registerTime < 600;";
+		return mysqli_query($this->connection, $sql);
+	}
+	
 }
 ?>
