@@ -1,6 +1,7 @@
 <?php
 include '../../database/databaseController.php';
 include '../../classes/attemptClass.php';
+include '../../classes/resultClass.php';
 
 
 if(isset($_GET["userName"]) && isset($_GET["caseID"])){
@@ -24,9 +25,9 @@ if(isset($_GET["userName"]) && isset($_GET["caseID"])){
 	}
 	$dbController = new DatabaseController();
 	$result = $dbController->insertNewAttempt($userName, $caseID, $newAttempt);
-	echo '{"result":'.$result.'}';
+	echo BLResult::BLResults($result);
 }
 else {
-	echo '{"result":0}';
+	echo BLResult::$MissingParameter;
 }
 ?>

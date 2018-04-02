@@ -4,6 +4,7 @@ class TopicClass{
 	public $topicTitle;
 	public $topicContent;
 	public $topicOwnerUserID;
+	public $topicOwnerUserDisplayName;
 	public $topicDateTime;
 	public $topicReplies;
 	public $topicNumberOfReplies;
@@ -24,6 +25,7 @@ class TopicClass{
 		$this->topicTitle = $topicTitle;
 		$this->topicContent = $topicContent;
 		$this->topicOwnerUserID = $topicOwnerUserID;
+		$this->topicOwnerUserDisplayName = $topicOwnerUserDisplayName;
 		$this->topicDateTime = $topicDateTime;
 		$this->topicNumberOfReplies = $topicNumberOfReplies;
 		$this->topicNumberOfLikes = $topicNumberOfLikes;
@@ -32,6 +34,43 @@ class TopicClass{
 	
 	public function setReplies($topicREplies){
 		$this->topicReplies = $topicREplies;
+	}
+}
+
+
+class TopicFirstFloorClass{
+	public $topicID;
+	public $topicTitle;
+	public $topicContent;
+	public $topicOwnerUserID;
+	public $topicOwnerUserDisplayName;
+	public $topicOwnerUserAvatar;
+	public $topicDateTime;
+	public $topicNumberOfReplies;
+	public $topicNumberOfLikes;
+	public $topicNumberOfDislikes;
+
+	public function __construct(
+			$topicID,
+			$topicTitle,
+			$topicContent,
+			$topicOwnerUserID,
+			$topicOwnerUserDisplayName,
+			$topicOwnerUserAvatar,
+			$topicDateTime,
+			$topicNumberOfReplies,
+			$topicNumberOfLikes,
+			$topicNumberOfDislikes){
+				$this->topicID = $topicID;
+				$this->topicTitle = $topicTitle;
+				$this->topicContent = $topicContent;
+				$this->topicOwnerUserID = $topicOwnerUserID;
+				$this->topicOwnerUserDisplayName = $topicOwnerUserDisplayName;
+				$this->topicOwnerUserAvatar = $topicOwnerUserAvatar;
+				$this->topicDateTime = $topicDateTime;
+				$this->topicNumberOfReplies = $topicNumberOfReplies;
+				$this->topicNumberOfLikes = $topicNumberOfLikes;
+				$this->topicNumberOfDislikes = $topicNumberOfDislikes;
 	}
 }
 

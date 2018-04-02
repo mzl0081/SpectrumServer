@@ -1,4 +1,7 @@
 <?php
+// AllTopics
+
+
 include '../../database/databaseController.php';
 include '../../classes/topicClass.php';
 

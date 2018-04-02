@@ -81,6 +81,11 @@ class DatabaseController {
 		$sql = "select topicID, topicTitle, topicContent, userID, userDisplayName, topicTime, topicNumberOfReplies, numberOfLikes, numberOfDislikes from spectrum_topics join spectrum_users using(userID) order by(topicTime) desc;";
 		return mysqli_query($this->connection, $sql);
 	}
+	
+	function selectFirstFloorTopic($topicID){
+		$sql = "select topicID, topicTitle, topicContent, userID, userDisplayName, userAvatar, topicTime, topicNumberOfReplies, numberOfLikes, numberOfDislikes from spectrum_topics join spectrum_users using(userID) where topicID='$topicID';";
+		return mysqli_query($this->connection, $sql);	
+	}
 		
 	function topicByID($topicID){
 		$sql = "select topicID, topicTitle, topicContent, userID, userDisplayName, topicTime, topicNumberOfReplies, numberOfLikes, numberOfDislikes from spectrum_topics join spectrum_users using(userID) where topicID='$topicID';";
@@ -147,6 +152,11 @@ class DatabaseController {
 	
 	function verifyCode($code, $email){
 		$sql = "select * from spectrum_register_account where registerEmail='$email' and registerVerficationCode='$code' and now()-registerTime < 600;";
+		return mysqli_query($this->connection, $sql);
+	}
+	
+	function selectProgressByUserName($userAccount){
+		$sql = "select * from spectrum_progress join spectrum_users using(userID) where userAccount='$userAccount'";
 		return mysqli_query($this->connection, $sql);
 	}
 	
